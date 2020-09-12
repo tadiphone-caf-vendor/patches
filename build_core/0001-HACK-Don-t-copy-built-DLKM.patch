@@ -1,0 +1,54 @@
+From f89bddd25f9791f0242c157388475efd8444884e Mon Sep 17 00:00:00 2001
+From: Kuba Wojciechowski <nullbytepl@gmail.com>
+Date: Sun, 13 Sep 2020 02:08:14 +0300
+Subject: [PATCH] HACK: Don't copy built DLKM
+
+* CAF REALLLLLY hates when it can't build any modules so just don't copy them
+
+Signed-off-by: Kuba Wojciechowski <nullbytepl@gmail.com>
+Change-Id: Iddc0fcfbc1a8309c95ee1666c07d7fd8e1d2f363
+---
+ core/Makefile | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index 85e187373..ab346e64d 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1186,15 +1186,15 @@ endef
+ # $(4): staging dir
+ # Depmod requires a well-formed kernel version so 0.0 is used as a placeholder.
+ define build-image-kernel-modules
+-    $(hide) rm -rf $(2)/lib/modules
+-    $(hide) mkdir -p $(2)/lib/modules
+-    $(hide) cp $(1) $(2)/lib/modules/
+-    $(hide) rm -rf $(4)
+-    $(hide) mkdir -p $(4)/lib/modules/0.0/$(3)lib/modules
+-    $(hide) cp $(1) $(4)/lib/modules/0.0/$(3)lib/modules
+-    $(hide) $(DEPMOD) -b $(4) 0.0
+-    $(hide) sed -e 's/\(.*modules.*\):/\/\1:/g' -e 's/ \([^ ]*modules[^ ]*\)/ \/\1/g' $(4)/lib/modules/0.0/modules.dep > $(2)/lib/modules/modules.dep
+-    $(hide) cp $(4)/lib/modules/0.0/modules.alias $(2)/lib/modules
++    #$(hide) rm -rf $(2)/lib/modules
++    #$(hide) mkdir -p $(2)/lib/modules
++    #$(hide) cp $(1) $(2)/lib/modules/
++    #$(hide) rm -rf $(4)
++    #$(hide) mkdir -p $(4)/lib/modules/0.0/$(3)lib/modules
++    #$(hide) cp $(1) $(4)/lib/modules/0.0/$(3)lib/modules
++    #$(hide) $(DEPMOD) -b $(4) 0.0
++    #$(hide) sed -e 's/\(.*modules.*\):/\/\1:/g' -e 's/ \([^ ]*modules[^ ]*\)/ \/\1/g' $(4)/lib/modules/0.0/modules.dep > $(2)/lib/modules/modules.dep
++    #$(hide) cp $(4)/lib/modules/0.0/modules.alias $(2)/lib/modules
+ endef
+ 
+ # -----------------------------------------------------------------
+@@ -2017,7 +2017,7 @@ define build-vendorimage-target
+   @mkdir -p $(vendorimage_intermediates) && rm -rf $(vendorimage_intermediates)/vendor_image_info.txt
+   $(call generate-userimage-prop-dictionary, $(vendorimage_intermediates)/vendor_image_info.txt, skip_fsck=true)
+   $(if $(BOARD_VENDOR_KERNEL_MODULES), \
+-    $(call build-image-kernel-modules,$(BOARD_VENDOR_KERNEL_MODULES),$(TARGET_OUT_VENDOR),vendor/,$(call intermediates-dir-for,PACKAGING,depmod_vendor)))
++    #$(call build-image-kernel-modules,$(BOARD_VENDOR_KERNEL_MODULES),$(TARGET_OUT_VENDOR),vendor/,$(call intermediates-dir-for,PACKAGING,depmod_vendor)))
+   $(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH \
+       build/make/tools/releasetools/build_image.py \
+       $(TARGET_OUT_VENDOR) $(vendorimage_intermediates)/vendor_image_info.txt $(INSTALLED_VENDORIMAGE_TARGET) $(TARGET_OUT)
+-- 
+2.17.1
+

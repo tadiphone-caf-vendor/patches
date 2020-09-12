@@ -1,0 +1,27 @@
+From 27925369fe5b112cada98d97df85dd5c7a6ad497 Mon Sep 17 00:00:00 2001
+From: Kuba Wojciechowski <nullbytepl@gmail.com>
+Date: Sun, 13 Sep 2020 02:05:55 +0300
+Subject: [PATCH] TEMP: liblight: scale lcd brightness for 4095-level panel
+
+Signed-off-by: Kuba Wojciechowski <nullbytepl@gmail.com>
+Change-Id: I63d98900c8ab908d335dd86cf0635f06e7ab6bf5
+---
+ liblight/lights.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/liblight/lights.c b/liblight/lights.c
+index f74fb542..b95b23d3 100644
+--- a/liblight/lights.c
++++ b/liblight/lights.c
+@@ -165,7 +165,7 @@ set_light_backlight(struct light_device_t* dev,
+         if (!access(LCD_FILE, F_OK)) {
+             err = write_int(LCD_FILE, brightness);
+         } else {
+-            err = write_int(LCD_FILE2, brightness);
++            err = write_int(LCD_FILE2, brightness*16);
+         }
+     }
+ 
+-- 
+2.17.1
+

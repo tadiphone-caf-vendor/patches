@@ -1,0 +1,51 @@
+From 9a4f752ae90dfc66a6ae12a2410b601270692d23 Mon Sep 17 00:00:00 2001
+From: Kuba Wojciechowski <nullbytepl@gmail.com>
+Date: Sat, 12 Sep 2020 14:23:36 +0300
+Subject: [PATCH] common: get rid of chre and hbtp
+
+Signed-off-by: Kuba Wojciechowski <nullbytepl@gmail.com>
+Change-Id: I9f0075e1cf9b284619e9836d96eae63429b74645
+---
+ rootdir/etc/init.qcom.rc | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/rootdir/etc/init.qcom.rc b/rootdir/etc/init.qcom.rc
+index e6b05fa6..3bde5c4f 100644
+--- a/rootdir/etc/init.qcom.rc
++++ b/rootdir/etc/init.qcom.rc
+@@ -1189,19 +1189,19 @@ service vendor.move_time_data /system/bin/move_time_data.sh
+     disabled
+     oneshot
+ 
+-service vendor.hbtp /vendor/bin/hbtp_daemon
+-     class main
+-     user system
+-     group system
+-     capabilities SYS_NICE
+-     disabled
+-
+-service chre /vendor/bin/chre
+-    class late_start
+-    user system
+-    group system
+-    socket chre seqpacket 0660 root system
+-    shutdown critical
++#service vendor.hbtp /vendor/bin/hbtp_daemon
++#     class main
++#     user system
++#     group system
++#     capabilities SYS_NICE
++#     disabled
++
++#service chre /vendor/bin/chre
++#    class late_start
++#    user system
++#    group system
++#    socket chre seqpacket 0660 root system
++#    shutdown critical
+ 
+ 
+ on property:vendor.chre.enabled=0
+-- 
+2.17.1
+
