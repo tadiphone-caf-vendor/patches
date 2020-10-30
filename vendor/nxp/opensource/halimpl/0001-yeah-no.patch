@@ -1,0 +1,27 @@
+From c6f53e40469c3e7f7646b8e19381726ddf8a1880 Mon Sep 17 00:00:00 2001
+From: Kuba Wojciechowski <nullbytepl@gmail.com>
+Date: Fri, 30 Oct 2020 19:57:31 +0300
+Subject: [PATCH] yeah no
+
+why is it being overriden in 2 places?
+
+Change-Id: Ib0e72f09594fe43f69b42b697f06259382967971
+---
+ nfc_vendor_product.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nfc_vendor_product.mk b/nfc_vendor_product.mk
+index eaa40a0..83a9ca1 100644
+--- a/nfc_vendor_product.mk
++++ b/nfc_vendor_product.mk
+@@ -1,6 +1,6 @@
+ # Enable build support for NFC open source vendor modules
+ ifeq ($(call is-board-platform-in-list, sdm845 sdm710 msmnile $(MSMSTEPPE) $(TRINKET) kona lito bengal atoll lahaina holi),true)
+-TARGET_USES_NQ_NFC := true
++TARGET_USES_NQ_NFC := false
+ endif
+ 
+ NQ_VENDOR_NFC += vendor.nxp.hardware.nfc@2.0-service
+-- 
+2.17.1
+
